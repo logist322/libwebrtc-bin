@@ -98,6 +98,7 @@ if (!(Test-Path $BUILD_DIR)) {
 gclient sync --with_branch_heads -r $WEBRTC_COMMIT
 git apply $PATCH_DIR\4k.patch
 git apply --ignore-space-change -v $PATCH_DIR\win_dynamic_crt.patch
+git apply --ignore-space-change -v $PATCH_DIR\voice_engine.patch
 Pop-Location
 
 Get-PSDrive

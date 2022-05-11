@@ -1,0 +1,11 @@
+--- a/src/media/engine/webrtc_voice_engine.cc
++++ b/src/media/engine/webrtc_voice_engine.cc
+@@ -496,7 +496,7 @@ bool WebRtcVoiceEngine::ApplyOptions(const AudioOptions& options_in) {
+   }
+ #endif
+ 
+-  if (options.echo_cancellation) {
++  if (false) {
+     // Check if platform supports built-in EC. Currently only supported on
+     // Android and in combination with Java based audio layer.
+     // TODO(henrika): investigate possibility to support built-in EC also
