@@ -1,0 +1,25 @@
+on: [push]
+  # schedule:
+  #   - cron:  '* * * * 1'
+
+jobs:
+  check-chrome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: webrtc-commit
+        with:
+          script: |
+            const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => return data[0]);
+            return {
+              version: commit.version,
+              hash: commit.hashes.webrtc,
+            };
+          result-encoding: json
+      
+      - uses: action/github-script@v6
+        id: version
+        with: 
+          script: |
+            const version = process.env;
+            console.dir(version);
