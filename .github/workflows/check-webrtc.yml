@@ -11,10 +11,11 @@ jobs:
         with:
           script: |
             const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => return data[0]);
-            return {
+            const result = {
               version: commit.version,
               hash: commit.hashes.webrtc,
             };
+            return result;
           result-encoding: json
       
       # - uses: action/github-script@v6
