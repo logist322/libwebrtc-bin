@@ -10,7 +10,7 @@ jobs:
         id: webrtc-commit
         with:
           script: |
-            const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => return data[0]);
+            const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => data[0]);
             const result = {
               version: commit.version,
               hash: commit.hashes.webrtc,
