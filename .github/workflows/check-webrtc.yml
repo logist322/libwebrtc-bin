@@ -17,9 +17,9 @@ jobs:
             };
           result-encoding: json
       
-      - uses: action/github-script@v6
-        id: version
-        with: 
-          script: |
-            const version = process.env;
-            console.dir(version);
+      # - uses: action/github-script@v6
+      #   id: version
+      #   with: 
+      #     script: |
+      #       const version = process.env;
+      #       console.dir(version);
