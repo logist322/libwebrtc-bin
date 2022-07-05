@@ -10,7 +10,6 @@ jobs:
 
       - run: |
           grep 'WEBRTC_SEMANTIC_VERSION' ./VERSION |
-          # cut -d'=' -f1 |
           {
             read version;
             echo '${version}';
