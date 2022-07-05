@@ -44,10 +44,13 @@ jobs:
               });
 
       - name: Check if the versions are different
-        if: LAST_VERSION == CURRENT_VERSION
         run: |
-          echo "The last version ($CURRENT_VERSION) is already released!"
-          exit 1
+          if $LAST_VERSION == $CURRENT_VERSION
+          then
+            echo "The latest version ($CURRENT_VERSION) is already released!"
+            exit 1
+          fi
+          echo "There is a new version!"
       
       # - uses: action/github-script@v6
       #   id: version
