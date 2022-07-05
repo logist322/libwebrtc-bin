@@ -5,6 +5,8 @@ on: [push]
 jobs:
   check-chrome:
     runs-on: ubuntu-latest
+    env: 
+      CURRENT_VERSION: ${{ grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2 }}
     steps:
       - uses: actions/github-script@v6
         id: webrtc-commit
@@ -12,7 +14,7 @@ jobs:
           script: |
             const https = require('https');
 
-            const commit = await new Promise(resolve => {
+            await new Promise(resolve => {
               https.get('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0', (resp) => {
                 let data = '';
 
@@ -25,12 +27,14 @@ jobs:
                 });
 
               })
-            }).then(data => JSON.parse(data)[0]);
-            core.exportVariable('version', commit.version);
-            core.exportVariable('hash', commit.hashes.webrtc);
+            }).then(data => {
+                const commit = JSON.parse(data)[0];
+                core.exportVariable('version', commit.version);
+                core.exportVariable('hash', commit.hashes.webrtc);
+              });
 
       - if: true
-        run: exit 1
+        run: echo '$CURRENT_VERSION'
       
       # - uses: action/github-script@v6
       #   id: version
