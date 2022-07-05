@@ -43,7 +43,7 @@ jobs:
               });
 
       - if: true
-        run: echo '$CURRENT_VERSION'
+        run: echo "$CURRENT_VERSION"
       
       # - uses: action/github-script@v6
       #   id: version
