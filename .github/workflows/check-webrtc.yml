@@ -6,6 +6,8 @@ jobs:
   check-chrome:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+
       - run: export CURRENT_VERSION=${grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2}
 
       - uses: actions/github-script@v6
