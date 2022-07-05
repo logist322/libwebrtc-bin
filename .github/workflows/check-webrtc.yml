@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - run: |
-          echo '${grep 'WEBRTC_SEMANTIC_VERSION' ./VERSION}'
+          echo "${grep 'WEBRTC_SEMANTIC_VERSION' ./VERSION}"
           grep 'WEBRTC_SEMANTIC_VERSION' ./VERSION |
           {
             read version;
