@@ -13,7 +13,7 @@ jobs:
           cut -d'=' -f2 |
           {
             read version;
-            export CURRENT_VERSION=$version;
+            echo 'CURRENT_VERSION=$version' >> $GITHUB_ENV;
           }
 
       - uses: actions/github-script@v6
