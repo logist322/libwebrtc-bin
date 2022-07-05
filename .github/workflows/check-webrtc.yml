@@ -1,6 +1,6 @@
 on: 
   schedule:
-    - cron:  '53 * * * *'
+    - cron:  '20 * * * *'
 
 jobs:
   check-chrome:
@@ -74,10 +74,6 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
-      
-      # - uses: action/github-script@v6
-      #   id: version
-      #   with: 
-      #     script: |
-      #       const version = process.env;
-      #       console.log(version);
+        with:
+          token: ${{ secrets.PAT }}
+          committer: GitHub <noreply@github.com>
