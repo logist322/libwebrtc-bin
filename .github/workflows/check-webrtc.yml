@@ -45,7 +45,7 @@ jobs:
 
       - name: Check if the versions are different
         run: |
-          if $LAST_VERSION == $CURRENT_VERSION
+          if true
           then
             echo "The latest version ($CURRENT_VERSION) is already released!"
             exit 1
