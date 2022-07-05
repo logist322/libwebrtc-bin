@@ -45,12 +45,35 @@ jobs:
 
       - name: Check if the versions are different
         run: |
-          if true
+          if $LAST_VERSION == $CURRENT_VERSION
           then
             echo "The latest version ($CURRENT_VERSION) is already released!"
             exit 1
           fi
           echo "There is a new version!"
+
+      - name: Patch ./VERSION
+        run: |
+          cat ./VERSION
+
+          grep -n 'WEBRTC_VERSION' ./VERSION |
+          cut -d':' -f1 |
+          {
+            read line;
+            sed -i "${line}s|*|WEBRTC_VERSION=${LAST_VERSION}|g" ./VERSION;
+          }
+
+          grep -n 'WEBRTC_COMMIT' ./VERSION |
+          cut -d':' -f1 |
+          {
+            read line;
+            sed -i "${line}s|*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
+          }
+
+          cat ./VERSION
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
       
       # - uses: action/github-script@v6
       #   id: version
