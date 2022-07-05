@@ -1,6 +1,6 @@
-on: [push]
-  # schedule:
-  #   - cron:  '* * * * 1'
+on: 
+  schedule:
+    - cron:  '53 * * * *'
 
 jobs:
   check-chrome:
