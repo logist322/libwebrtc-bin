@@ -60,14 +60,14 @@ jobs:
           cut -d':' -f1 |
           {
             read line;
-            sed -i "${line}s|*|WEBRTC_VERSION=${LAST_VERSION}|g" ./VERSION;
+            sed -i "${line}s|.*|WEBRTC_VERSION=${LAST_VERSION}|g" ./VERSION;
           }
 
           grep -n 'WEBRTC_COMMIT' ./VERSION |
           cut -d':' -f1 |
           {
             read line;
-            sed -i "${line}s|*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
+            sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
           cat ./VERSION
