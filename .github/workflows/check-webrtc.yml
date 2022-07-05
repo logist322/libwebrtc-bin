@@ -25,7 +25,7 @@ jobs:
                 });
 
               })
-            }).then(data => JSON.parse(data));
+            }).then((data) => JSON.parse(data));
             console.log(commit.0);
             // const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => data[0]);
             // const commit = await new Promise()
