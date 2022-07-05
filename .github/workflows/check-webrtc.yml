@@ -1,6 +1,6 @@
 on: 
   schedule:
-    - cron:  '20 * * * *'
+    - cron:  '48 * * * *'
 
 jobs:
   check-chrome:
@@ -54,8 +54,6 @@ jobs:
 
       - name: Patch ./VERSION
         run: |
-          cat ./VERSION
-
           grep -n 'WEBRTC_VERSION' ./VERSION |
           cut -d':' -f1 |
           {
@@ -70,10 +68,8 @@ jobs:
             sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
-          cat ./VERSION
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
           committer: GitHub <noreply@github.com>
