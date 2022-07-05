@@ -5,9 +5,9 @@ on: [push]
 jobs:
   check-chrome:
     runs-on: ubuntu-latest
-    env: 
-      CURRENT_VERSION: ${{ grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2 }}
     steps:
+      - run: export CURRENT_VERSION=${grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2}
+
       - uses: actions/github-script@v6
         id: webrtc-commit
         with:
