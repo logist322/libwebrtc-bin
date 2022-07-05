@@ -28,13 +28,9 @@ jobs:
             }).then(data => JSON.parse(data)[0]);
             core.exportVariable('version', commit.version);
             core.exportVariable('hash', commit.hashes.webrtc);
-            // return {
-            //   version: commit.version,
-            //   hash: commit.hashes.webrtc,
-            // };
-          # result-encoding: json
 
-      - run: echo "$version $hash"
+      - if: true
+        run: exit 1
       
       # - uses: action/github-script@v6
       #   id: version
