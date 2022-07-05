@@ -13,6 +13,7 @@ jobs:
           cut -d'=' -f2 |
           {
             read version;
+            echo '$version';
             echo 'CURRENT_VERSION=${version}' >> $GITHUB_ENV;
           }
 
