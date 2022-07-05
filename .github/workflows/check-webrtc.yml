@@ -8,7 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: export CURRENT_VERSION=${grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2}
+      - run: |
+        grep 'WEBRTC_SEMANTIC_VERSION' VERSION | cut -d'=' -f2 | { read version; export CURRENT_VERSION=$version; }
 
       - uses: actions/github-script@v6
         id: webrtc-commit
