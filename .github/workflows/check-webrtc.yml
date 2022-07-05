@@ -12,7 +12,7 @@ jobs:
           script: |
             const https = require('https');
 
-            const commit = await new Promise((resolve) => {
+            const commit = await new Promise(resolve => {
               https.get('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0', (resp) => {
                 let data = '';
 
@@ -25,15 +25,8 @@ jobs:
                 });
 
               })
-            }).then((data) => JSON.parse(data));
-            console.log(commit.0);
-            // const commit = await fetch('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0').then(res => res.json()).then(data => data[0]);
-            // const commit = await new Promise()
-            // const result = {
-            //   version: commit.version,
-            //   hash: commit.hashes.webrtc,
-            // };
-            // return result;
+            }).then(data => JSON.parse(data));
+            console.log(commit[0]);
           result-encoding: json
       
       # - uses: action/github-script@v6
