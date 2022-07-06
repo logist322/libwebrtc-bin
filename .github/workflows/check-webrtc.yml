@@ -70,7 +70,13 @@ jobs:
             sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
+      - uses: tibdex/github-app-token@v1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.PR_BOT_APP_ID }}
+          private_key: ${{ secrets.PR_BOT_PRIV_KEY }}
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ steps.generate_token.outputs.token }}
