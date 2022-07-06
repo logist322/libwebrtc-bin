@@ -1,6 +1,6 @@
-on: 
-  schedule:
-    - cron:  '49 * * * *'
+on: [push]
+  # schedule:
+  #   - cron:  '49 * * * *'
 
 jobs:
   check-chrome:
@@ -70,10 +70,10 @@ jobs:
             sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
-          echo "${{ secrets.PAT }}"
+          echo "${{ secrets.GITHUB_TOKEN }}"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           committer: GitHub <noreply@github.com>
