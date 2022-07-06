@@ -1,14 +1,12 @@
-on: 
-  schedule:
-    - cron:  '03 * * * *'
+on: [push]
+  # schedule:
+  #   - cron:  '03 * * * *'
 
 jobs:
   check-chrome:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Parse current version
         run: |
@@ -70,10 +68,12 @@ jobs:
             sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
-          echo "${{ secrets.GITHUB_TOKEN }}"
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           committer: GitHub <noreply@github.com>
+          commit-message: Upgrade to ${LAST_VERSION} version
+          branch: upgrade-to-${LAST_VERSION}
+          title: Upgrade to ${LAST_VERSION}
+          body: Upgrade libwebrtc version to ${LAST_VERSION} 
