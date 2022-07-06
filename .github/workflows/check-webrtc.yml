@@ -71,14 +71,18 @@ jobs:
             sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
           }
 
-      - name: Create Pull Request
-        env: 
-          LAST_VERSION: ${{ LAST_VERSION }}
-        uses: peter-evans/create-pull-request@v4
-        with:
-          token: ${{ secrets.PAT }}
-          committer: GitHub <noreply@github.com>
-          commit-message: Upgrade to ${{ LAST_VERSION }} version
-          branch: upgrade-to-${{ LAST_VERSION }}
-          title: Upgrade to ${{ LAST_VERSION }}
-          body: Upgrade libwebrtc version to ${{ LAST_VERSION }} 
+      - env: 
+          LAST_VERSION: ${{ toJSON(env) }}
+        run: echo "$LAST_VERSION"
+
+      # - name: Create Pull Request
+      #   env: 
+      #     LAST_VERSION: ${{ LAST_VERSION }}
+      #   uses: peter-evans/create-pull-request@v4
+      #   with:
+      #     token: ${{ secrets.PAT }}
+      #     committer: GitHub <noreply@github.com>
+      #     commit-message: Upgrade to ${{ LAST_VERSION }} version
+      #     branch: upgrade-to-${{ LAST_VERSION }}
+      #     title: Upgrade to ${{ LAST_VERSION }}
+      #     body: Upgrade libwebrtc version to ${{ LAST_VERSION }} 
