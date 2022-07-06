@@ -10,7 +10,7 @@ jobs:
 
       - name: Parse current version
         run: |
-          grep 'WEBRTC_SEMANTIC_VERSION' ./VERSION |
+          grep 'WEBRTC_VERSION' ./VERSION |
           cut -d'=' -f2 |
           {
             read version;
@@ -76,7 +76,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           committer: GitHub <noreply@github.com>
-          commit-message: Upgrade to ${LAST_VERSION} version
-          branch: upgrade-to-${LAST_VERSION}
-          title: Upgrade to ${LAST_VERSION}
-          body: Upgrade libwebrtc version to ${LAST_VERSION} 
+          commit-message: Upgrade to ${{ LAST_VERSION }} version
+          branch: upgrade-to-${{ LAST_VERSION }}
+          title: Upgrade to ${{ LAST_VERSION }}
+          body: Upgrade libwebrtc version to ${{ LAST_VERSION }} 
