@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: echo "asd" >> asd.dsa
+      - run: echo "asd123axczs" >> asd.dsa
 
       # - name: Parse current version
       #   run: |
