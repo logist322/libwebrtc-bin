@@ -80,4 +80,5 @@ jobs:
           title: Upgrade to 
           body: Upgrade libwebrtc version to 
           labels: k::version
-          # delete-branch: true
+          draft: true
+          delete-branch: true
