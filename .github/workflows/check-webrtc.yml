@@ -8,74 +8,76 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Parse current version
-        run: |
-          grep 'WEBRTC_VERSION' ./VERSION |
-          cut -d'=' -f2 |
-          {
-            read version;
-            echo "CURRENT_VERSION=${version}" >> $GITHUB_ENV;
-          }
+      - run: echo "asd" >> asd.dsa
 
-      - name: Get last stable version and hash
-        uses: actions/github-script@v6
-        id: webrtc-commit
-        with:
-          script: |
-            const https = require('https');
+      # - name: Parse current version
+      #   run: |
+      #     grep 'WEBRTC_VERSION' ./VERSION |
+      #     cut -d'=' -f2 |
+      #     {
+      #       read version;
+      #       echo "CURRENT_VERSION=${version}" >> $GITHUB_ENV;
+      #     }
 
-            await new Promise(resolve => {
-              https.get('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0', (resp) => {
-                let data = '';
+      # - name: Get last stable version and hash
+      #   uses: actions/github-script@v6
+      #   id: webrtc-commit
+      #   with:
+      #     script: |
+      #       const https = require('https');
 
-                resp.on('data', (chunk) => {
-                  data += chunk;
-                });
+      #       await new Promise(resolve => {
+      #         https.get('https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0', (resp) => {
+      #           let data = '';
 
-                resp.on('end', () => {
-                  resolve(data);
-                });
+      #           resp.on('data', (chunk) => {
+      #             data += chunk;
+      #           });
 
-              })
-            }).then(data => {
-                const commit = JSON.parse(data)[0];
-                core.exportVariable('LAST_VERSION', commit.version);
-                core.exportVariable('WEBRTC_HASH', commit.hashes.webrtc);
-              });
+      #           resp.on('end', () => {
+      #             resolve(data);
+      #           });
 
-      - name: Check if the versions are different
-        run: |
-          if [ $LAST_VERSION = $CURRENT_VERSION ]
-          then
-            echo "The latest version ($CURRENT_VERSION) is already released!"
-            exit 1
-          fi
-          echo "There is a new version!"
+      #         })
+      #       }).then(data => {
+      #           const commit = JSON.parse(data)[0];
+      #           core.exportVariable('LAST_VERSION', commit.version);
+      #           core.exportVariable('WEBRTC_HASH', commit.hashes.webrtc);
+      #         });
 
-      - name: Patch ./VERSION
-        run: |
-          grep -n 'WEBRTC_VERSION' ./VERSION |
-          cut -d':' -f1 |
-          {
-            read line;
-            sed -i "${line}s|.*|WEBRTC_VERSION=${LAST_VERSION}|g" ./VERSION;
-          }
+      # - name: Check if the versions are different
+      #   run: |
+      #     if [ $LAST_VERSION = $CURRENT_VERSION ]
+      #     then
+      #       echo "The latest version ($CURRENT_VERSION) is already released!"
+      #       exit 1
+      #     fi
+      #     echo "There is a new version!"
 
-          grep -n 'WEBRTC_COMMIT' ./VERSION |
-          cut -d':' -f1 |
-          {
-            read line;
-            sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
-          }
+      # - name: Patch ./VERSION
+      #   run: |
+      #     grep -n 'WEBRTC_VERSION' ./VERSION |
+      #     cut -d':' -f1 |
+      #     {
+      #       read line;
+      #       sed -i "${line}s|.*|WEBRTC_VERSION=${LAST_VERSION}|g" ./VERSION;
+      #     }
+
+      #     grep -n 'WEBRTC_COMMIT' ./VERSION |
+      #     cut -d':' -f1 |
+      #     {
+      #       read line;
+      #       sed -i "${line}s|.*|WEBRTC_COMMIT=${WEBRTC_HASH}|g" ./VERSION;
+      #     }
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PAT }}
           committer: GitHub <noreply@github.com>
-          commit-message: Upgrade to ${{ env.LAST_VERSION }} version
-          branch: upgrade-to-${{ env.LAST_VERSION }}
-          title: Upgrade to ${{ env.LAST_VERSION }}
-          body: Upgrade libwebrtc version to ${{ env.LAST_VERSION }}.
+          commit-message: Upgrade to  version
+          branch: upgrade-to
+          title: Upgrade to 
+          body: Upgrade libwebrtc version to 
           labels: k::version
           delete-branch: true
