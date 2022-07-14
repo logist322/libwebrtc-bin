@@ -8,9 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: echo "asd123axczasd123xczzcs" >> asd.dsa
-
       - name: Patch ./VERSION
+        id: patch_ver
         run: ./upgrade-ver.sh
 
       - name: Create Pull Request
@@ -18,10 +17,10 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           committer: GitHub <noreply@github.com>
-          commit-message: Upgrade to  version
-          branch: upgrade-to
-          title: Upgrade to 
-          body: Upgrade libwebrtc version to 
+          commit-message: Upgrade to ${{ steps.patch_ver.outputs.version }} version
+          branch: upgrade-to-${{ steps.patch_ver.outputs.version }}
+          title: Upgrade to ${{ steps.patch_ver.outputs.version }}
+          body: Upgrade libwebrtc version to ${{ steps.patch_ver.outputs.version }}.
           labels: k::version
           draft: true
           delete-branch: true

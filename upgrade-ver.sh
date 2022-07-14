@@ -15,4 +15,8 @@ while read p; do
         read line;
         sed -i "${line}s|.*|${field}=${value}|g" ./VERSION;
     }
+    if [ $name = version ]
+    then
+        echo "::set-output name=$(echo $name)::$(echo $value)"
+    fi
 done
