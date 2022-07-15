@@ -2,7 +2,7 @@
 
 res=$(curl 'https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Linux&num=1&offset=0')
 if [[ "$res" != *"\"verssion\""* ]]; then
-    echo "There is wrong \`JSON\` response, no \`version\` field there. Check the \`Chrome API\`, fix this \`.sh\` if needed and/or try again."
+    echo "There is wrong \`JSON\` response, no \`version\` field there.\nCheck the \`Chrome API\`, fix this \`.sh\` if needed and/or try again."
     exit 1
 fi
 if [[ "$res" != *"\"webrtc\""* ]]; then
